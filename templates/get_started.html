@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+    button {
+      display: block;
+      margin: auto;
+      position: absolute;
+      cursor: pointer;
+      border: 2px solid black;
+      border-radius: 20px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+      width: 250px;
+      height: 80px;
+      font-size: 24px;
+    }
+    button:hover {
+      background-color: white;
+      color: #f4540a;
+      border-color: #f4540a;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.16), 0 6px 12px rgba(0,0,0,0.23);
+    }
+    /* body {
+      background-size: cover
+    } */
+    @keyframes photo-reel {
+      0% {
+        background-image: url("../static/img/get_started/stima.jpg");
+      }
+      25% {
+        background-image: url("../static/img/get_started/pipe.jpg");
+      }
+      50% {
+        background-image: url("../static/img/get_started/fundi.jpg");
+      }
+    }
+    #photo-reel {
+      animation: photo-reel 30s linear infinite;
+    }
+</style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // position the first button 50 pixels from the top and left edges
+      $(".clientbtn").css({
+        top: '50%',
+        left: 600
+      });
+
+      // position the second button 50 pixels from the top and right edges
+      $(".fundibtn").css({
+        top: '50%',
+        right: 200
+      });
+    })
+      </script>
+</head>
+<body>
+
+  <a href="{{ url_for('client_sign_up') }}"><button class="clientbtn" >Post a Job!</button></a>
+  <a href="{{ url_for('fundi_sign_up') }}"><button class="fundibtn" >Sign Up as a Fundi!</button></a>
+</body>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1 class="mb-3">Orders by {{ user.username }} ({{ orders.total }})</h1>
+    {% for order in orders.items %}
+        <article class="media content-section">
+          <img class="rounded-circle article-img" src="{{ url_for('static', filename='img/' + order.user.image_link) }}">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{{ url_for('client_orders', username=order.user.username) }}">{{ order.user.username }}</a>
+              <small class="text-muted">{{ order.date_created.strftime('%Y-%m-%d') }}</small>
+            </div>
+            <h2><a class="article-title" href="{{ url_for('order', order_id=order.id) }}">{{ order.title }}</a></h2>
+            <p class="article-content">{{ order.description }}</p>
+          </div>
+        </article>
+    {% endfor %}
+    {% for page_num in orders.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if orders.page == page_num %}
+          <a class="btn btn-info mb-4" href="{{ url_for('client_orders', username=user.username, page=page_num) }}">{{ page_num }}</a>
+        {% else %}
+          <a class="btn btn-outline-info mb-4" href="{{ url_for('client_orders', username=user.username, page=page_num) }}">{{ page_num }}</a>
+        {% endif %}
+      {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
+{% endblock content %}
